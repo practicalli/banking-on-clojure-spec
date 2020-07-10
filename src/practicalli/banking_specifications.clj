@@ -79,6 +79,33 @@
     :req [::account-id ::first-name ::last-name ::email-address ::residential-address ::social-security-id]))
 
 
+;; Generating data from specifications
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Test data specifications by generating sample data from those specifications.
+;; Identifies specifications that may require custom generators.
+;; If individual specifications do not generate consistent data,
+;; then incorrect results may occur during function specification checking.
+
+(comment
+
+  (spec-gen/sample (spec/gen ::first-name))
+  (spec-gen/sample (spec/gen ::last-name))
+  (spec-gen/sample (spec/gen ::email-address))
+  (spec-gen/sample (spec/gen ::house-name-number))
+  (spec-gen/sample (spec/gen ::street-name))
+  (spec-gen/sample (spec/gen ::post-code))
+  (spec-gen/sample (spec/gen ::county))
+  (spec-gen/sample (spec/gen ::country))
+  (spec-gen/sample (spec/gen ::residential-address))
+  (spec-gen/sample (spec/gen ::social-security-id-uk))
+  (spec-gen/sample (spec/gen ::social-security-id-usa))
+  (spec-gen/sample (spec/gen ::social-security-id))
+  (spec-gen/sample (spec/gen ::customer-details))
+  (spec-gen/sample (spec/gen ::account-holder))
+
+  )
+
 
 
 ;; Banking function specifications
