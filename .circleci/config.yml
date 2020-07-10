@@ -20,4 +20,4 @@ jobs:    # basic units of work in a run
             - ~/.m2
             - ~/.gitlibs
           key: random-clojure-function-{{ checksum "deps.edn" }}
-      - run: bin/kaocha --reporter kaocha.report/documentation --no-randomize --no-color
+      - run: bin/kaocha --reporter kaocha.report/documentation --no-randomize --no-color --plugin kaocha.plugin.alpha/spec-test-check
