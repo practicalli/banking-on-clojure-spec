@@ -24,5 +24,5 @@
   [customer-details]
 
   (assoc customer-details
-         :practicalli.bank-account-spec/account-id
+         :practicalli.banking-specifications/account-id
          (java.util.UUID/randomUUID)))
