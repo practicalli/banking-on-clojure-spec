@@ -16,6 +16,7 @@
 
             [clojure.string]
 
+            [practicalli.specifications]
             [practicalli.banking-on-clojure :as SUT]))
 
 
@@ -39,7 +40,7 @@
 (spec/def ::street-name string?)
 (spec/def ::post-code string?)
 (spec/def ::county string?)
-(spec/def ::country string?)
+(spec/def ::country :practicalli.specifications/countries-of-the-world)
 
 (spec/def ::residential-address (spec/keys :req [::house-name-number ::street-name ::post-code]
                                            :opt [::county ::country]))
