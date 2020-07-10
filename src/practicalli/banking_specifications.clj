@@ -46,11 +46,20 @@
                                            :opt [::county ::country]))
 
 
-;; Social Security number - one of the regional specifications
-(spec/def ::social-security-id-usa (spec/and string? #(= 11 (count %))))
-(spec/def ::social-security-id-uk (spec/or :string string?
-                                           :count #(= 9 (count %))))
 
+;; Social security id specifications - not working reliably with built in generators
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+#_(defn social-security-number-usa? [value] (= 9 (count value)))
+#_(defn social-security-number-uk? [value] (= 11 (count value)))
+
+;; Social Security number - one of the regional specifications
+#_(spec/def ::social-security-id-usa (spec/and string? social-security-number-usa?))
+
+#_(spec/def ::social-security-id-uk (spec/and string? social-security-number-uk?))
+
+
+(spec/def ::social-security-id-uk string?)
+(spec/def ::social-security-id-usa string?)
 
 (spec/def ::social-security-id (spec/or ::social-security-id-uk
                                         ::social-security-id-usa))
