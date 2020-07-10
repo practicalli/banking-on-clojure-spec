@@ -1,4 +1,8 @@
-version: 2 # use CircleCI 2.0
+version: 2.1  # circleci configuration version
+
+orbs:
+  kaocha: lambdaisland/kaocha@0.0.1
+
 jobs:    # basic units of work in a run
   build: # runs not using Workflows must have a `build` job as entry point
     working_directory: ~/build # directory where steps will run
@@ -16,4 +20,4 @@ jobs:    # basic units of work in a run
             - ~/.m2
             - ~/.gitlibs
           key: random-clojure-function-{{ checksum "deps.edn" }}
-      - run: clojure -A:test:runner
+      - run: bin/kaocha --reporter kaocha.report/documentation --no-randomize --no-color
