@@ -27,6 +27,8 @@
 (spec/def ::first-name string?)
 (spec/def ::last-name string?)
 (spec/def ::email-address string?)
+
+;; Requires a custom generator - to be simplified
 #_(spec/def ::email-address (spec/and string? #(clojure.string/includes? % "@")))
 #_(spec/def ::email-address
     (spec/and string?
@@ -40,6 +42,10 @@
 (spec/def ::street-name string?)
 (spec/def ::post-code string?)
 (spec/def ::county string?)
+
+;; countries of the world as a set,
+;; containing a string for each country
+;; defined in the practicalli.specifications namespace
 (spec/def ::country :practicalli.specifications/countries-of-the-world)
 
 (spec/def ::residential-address (spec/keys :req [::house-name-number ::street-name ::post-code]
@@ -76,7 +82,12 @@
 ;; Account holder - composite specification
 (spec/def ::account-holder
   (spec/keys
-    :req [::account-id ::first-name ::last-name ::email-address ::residential-address ::social-security-id]))
+    :req [::account-id
+          ::first-name
+          ::last-name
+          ::email-address
+          ::residential-address
+          ::social-security-id]))
 
 
 ;; Generating data from specifications
@@ -124,19 +135,28 @@
 
 ;; test the instrumentation of the function
 ;; use bad data, should return spec error
+(comment
 
-#_(SUT/register-account-holder {})
+  (SUT/register-account-holder {})
 
-;; Use specs to generate test data, should evaluate correctly
-#_ (SUT/register-account-holder
-     (spec-gen/generate
-       (spec/gen ::customer-details)))
+  ;; Use specs to generate test data, should evaluate correctly
+  (SUT/register-account-holder
+    (spec-gen/generate
+      (spec/gen ::customer-details)))
 
 
-#_(spec-test/unstrument `register-account-holder)
+  (spec-test/unstrument `register-account-holder)
 
+  )
 
 ;; spec check
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Generative testing from specifications
+;; Generate 1000 data points from the arguments to a function spec
+;; Use that data to check the evaluation result against the return specification
 
-(spec-test/check `register-account-holder)
+(comment
+
+  (spec-test/check `SUT/register-account-holder)
+
+  )
