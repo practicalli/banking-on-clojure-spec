@@ -18,14 +18,20 @@
   (spec-gen/generate (spec/gen :practicalli.banking-specifications/customer-details)))
 
 
-(spec-gen/generate (spec/gen :practicalli.banking-specifications/customer-details))
-;; => #:practicalli.banking-specifications{:first-name "r7q9RFB202v7a69z", :last-name "6N5", :email-address "L6dsud946p680P0pIYZ33CGZd0", :residential-address #:practicalli.banking-specifications{:house-name-number "gCuRMe0C8", :street-name "5", :post-code "VN"}, :social-security-id "a7P0xfBNPv6"}
+(def account-holder-mock
+  (spec-gen/generate (spec/gen :practicalli.banking-specifications/account-holder)))
 
 
-(spec-gen/sample (spec/gen :practicalli.banking-specifications/customer-details))
+(deftest register-account-holder-test
+  (testing "Basic registration - happy path"
 
-(spec/exercise (spec/cat :practicalli.banking-specifications/first-name :practicalli.banking-specifications/last-name))
-;; => ([("") #:practicalli.banking-specifications{:first-name ""}] [("6") #:practicalli.banking-specifications{:first-name "6"}] [("") #:practicalli.banking-specifications{:first-name ""}] [("6") #:practicalli.banking-specifications{:first-name "6"}] [("W") #:practicalli.banking-specifications{:first-name "W"}] [("ljooD") #:practicalli.banking-specifications{:first-name "ljooD"}] [("704d5x") #:practicalli.banking-specifications{:first-name "704d5x"}] [("EZyBT") #:practicalli.banking-specifications{:first-name "EZyBT"}] [("1e6") #:practicalli.banking-specifications{:first-name "1e6"}] [("v") #:practicalli.banking-specifications{:first-name "v"}])
+    (is (= (set (keys (SUT/register-account-holder customer-mock)))
+           (set (keys account-holder-mock))))
+
+    (is (spec/valid? :practicalli.banking-specifications/account-holder
+                     (SUT/register-account-holder customer-mock)))
+
+    )) ;; End of register-account-holder-test
 
 
 (def customer-mock
