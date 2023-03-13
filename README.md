@@ -12,10 +12,19 @@ Download from https://github.com/practicalli/banking-on-clojure.
 ## Development
 Open the code in a Clojure aware editor and start a REPL session.
 
+```shell
+clojure -M:repl/reloaded
+```
+
 Run all the tests in the project using the Cognitect Labs test runner, setting the classpath to include `test` directory.  The aliases are included in the project `deps.edn` file.
 
 ```shell
 clojure -A:test:runner
+```
+
+Or continually run test with the kaocha test runner from the Practicalli Clojure CLI Config
+```
+clojure -X:test/watch
 ```
 
 
